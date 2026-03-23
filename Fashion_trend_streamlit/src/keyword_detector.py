@@ -8,22 +8,22 @@ FASHION_KEYWORDS = [
     "linen shirt",
     "leather jacket",
     "mini skirt",
-    "chunky sneakers"
-    "oversized_blazer"
-    "pleated skirt"
-    "maxi skirt"
-    "white sneakers"
-    "platform sneakers"
-    "nike dunk"
-    "adidas samba"
-    "combat boots"
-    "wide_leg_jeans"
-    "parachute pants"
-    "cropped hoodie"
-    "graphic hoodie"
+    "chunky sneakers",
+    "oversized_blazer",
+    "pleated skirt",
+    "maxi skirt",
+    "white sneakers",
+    "platform sneakers",
+    "nike dunk",
+    "adidas samba",
+    "combat boots",
+    "wide_leg_jeans",
+    "parachute pants",
+    "cropped hoodie",
+    "graphic hoodie",
     "corset top"
-    "tank top"
-    "denim jacket"
+    "tank top",
+    "denim jacket",
     "bomber jacket"
 ]
 
