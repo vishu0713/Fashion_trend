@@ -1,9 +1,11 @@
 import pandas as pd
 import re
+from pathlib import Path
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 import matplotlib.pyplot as plt
 
-DATA_FILE = "data/processed/fashion_trend_dataset.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_FILE = BASE_DIR / "data" / "processed" / "fashion_trend_dataset.csv"
 
 
 def clean_column_name(col_name: str) -> str:
@@ -13,10 +15,7 @@ def clean_column_name(col_name: str) -> str:
     return col_name
 
 
-# -----------------------------
-# Load dataset
-# -----------------------------
-df = pd.read_csv("C:/Users/vishu/OneDrive/Desktop/Fashion_trend/data/processed/fashion_trend_dataset.csv")
+df = pd.read_csv(DATA_FILE)
 df.columns = [clean_column_name(col) for col in df.columns]
 
 if df.columns[0] != "date":
@@ -70,59 +69,3 @@ def forecast_keyword(keyword: str, steps: int = 3):
         "history": series.tail(24).copy(),
         "forecast_df": forecast_df
     }
-
-
-def plot_forecast(result):
-    if not result["success"]:
-        print(result["message"])
-        return
-
-    history = result["history"]
-    forecast_df = result["forecast_df"]
-
-    plt.figure(figsize=(12, 6))
-
-    plt.plot(
-        history["date"],
-        history["trend"],
-        marker="o",
-        linewidth=2,
-        label="Historical Trend"
-    )
-
-    plt.plot(
-        forecast_df["date"],
-        forecast_df["forecast"],
-        marker="o",
-        linestyle="--",
-        linewidth=2,
-        label="Forecast"
-    )
-
-    plt.title(f"Forecast for {result['keyword'].replace('_', ' ').title()}")
-    plt.xlabel("Date")
-    plt.ylabel("Trend Score")
-    plt.xticks(rotation=45)
-    plt.grid(True)
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-
-
-if __name__ == "__main__":
-    user_keyword = "cargo pants"
-    forecast_steps = 3
-
-    result = forecast_keyword(user_keyword, steps=forecast_steps)
-
-    if result["success"]:
-        print("\nForecast Result")
-        print("-" * 40)
-        print("Keyword:", result["keyword"])
-        print("Next", forecast_steps, "month(s) forecast:")
-        print(result["forecast_df"])
-        print("-" * 40)
-
-        plot_forecast(result)
-    else:
-        print(result["message"])
